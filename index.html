@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0f1a" />
+    <title>Mystic Falls: Mini Games</title>
+    <meta
+      name="description"
+      content="لعبة Mystic Hunt — ميني-جيم مستوحاة من أجواء The Vampire Diaries: تتحرك، تجمع، تتجنب Hunters، وتكسب نقاط. تعمل على الجوال والبي سي."
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css?v=20260327_4" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="28" height="28" focusable="false">
+              <path
+                d="M32 4c11.6 7.1 20 19.5 20 33.7C52 51 43.8 60 32 60S12 51 12 37.7C12 23.5 20.4 11.1 32 4Z"
+                fill="currentColor"
+                opacity="0.9"
+              />
+              <path d="M26 38c2.5 4.3 5 6 6 6s3.5-1.7 6-6" fill="none" stroke="currentColor" stroke-width="3" />
+              <path d="M22 30c2-2.8 4.2-4.2 6.5-4.2S33 27.2 33 30" fill="none" stroke="currentColor" stroke-width="3" />
+              <path d="M31 30c2-2.8 4.2-4.2 6.5-4.2S42 27.2 42 30" fill="none" stroke="currentColor" stroke-width="3" />
+            </svg>
+          </div>
+          <div class="brand__text">
+            <div class="brand__title">Mystic Falls</div>
+            <div class="brand__subtitle">Mini Games (Fan-made)</div>
+          </div>
+        </div>
+
+        <div class="hud" aria-label="إحصائيات اللاعب">
+          <div class="hud__pill" title="البروفايل الحالي">
+            <span class="hud__label">البروفايل</span>
+            <span class="hud__value" id="hudProfile">—</span>
+          </div>
+          <div class="hud__pill">
+            <span class="hud__label">المستوى</span>
+            <span class="hud__value" id="hudLevel">1</span>
+          </div>
+          <div class="hud__pill">
+            <span class="hud__label">النقاط</span>
+            <span class="hud__value" id="hudScore">0</span>
+          </div>
+          <button class="iconbtn" id="adminBtn" type="button" aria-label="Admin">
+            <span style="font-weight: 800; letter-spacing: 0.04em">admin</span>
+          </button>
+          <button class="iconbtn" id="openSettings" type="button" aria-label="إعدادات">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <path
+                fill="currentColor"
+                d="M19.14 12.94a7.43 7.43 0 0 0 0-1.88l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.5 7.5 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 0h-3.8a.5.5 0 0 0-.49.41l-.36 2.54c-.58.23-1.12.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L.71 6.47a.5.5 0 0 0 .12.64L2.86 8.7c-.06.31-.1.63-.1.94 0 .31.04.63.1.94L.83 13.16a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .6.22l2.39-.96c.5.4 1.05.71 1.63.94l.36 2.54a.5.5 0 0 0 .49.41h3.8a.5.5 0 0 0 .49-.41l.36-2.54c.58-.23 1.12-.54 1.63-.94l2.39.96a.5.5 0 0 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="hero" aria-label="مقدمة">
+          <div class="hero__card">
+            <div class="hero__headline">
+              <h1>اختر شخصيتك وابدأ الليلة في Mystic Falls</h1>
+              <p>
+                لعبة واحدة حقيقية: تتحرك، تجمع، تتجنب خصوم، وتكسب نقاط. فيها <strong>مراحل</strong> + <strong>ترقيات</strong> + نظام
+                تقدم وفوز/خسارة.
+              </p>
+            </div>
+            <div class="hero__cta">
+              <button class="btn btn--primary" id="gameStart" type="button">ابدأ اللعبة</button>
+              <button class="btn btn--ghost" id="gameHow" type="button">طريقة اللعب</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="اختيار الشخصية">
+          <div class="panel__head">
+            <h2>الشخصيات</h2>
+            <div class="panel__meta">
+              <span class="chip" id="selectedCharacterChip">ما اخترت أحد</span>
+              <button class="btn btn--small btn--ghost" id="randomCharacter" type="button">اختيار عشوائي</button>
+            </div>
+          </div>
+          <div class="characters" id="characters" role="list"></div>
+        </section>
+
+        <section class="panel" aria-label="اللعبة">
+          <div class="panel__head">
+            <h2>Mystic Hunt</h2>
+            <div class="panel__meta">
+              <span class="chip" id="stageChip">مرحلة: 1</span>
+              <span class="chip" id="runChip">0 نقطة في الجولة</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__title">اللعبة</div>
+            <p class="card__desc">
+              اجمع “Blood Orbs” داخل الساحة، وتجنب “Hunters”. كل مرحلة لها هدف تجميع، وبعدها تختار ترقية. إذا انمسكت 3 مرات
+              تنتهي الجولة.
+            </p>
+
+            <div class="gamewrap" id="gameWrap">
+              <canvas id="gameCanvas"></canvas>
+
+              <div class="gamehud" aria-live="polite">
+                <div class="hud__pill"><span class="hud__label">الهدف</span><span class="hud__value" id="goalHud">0</span></div>
+                <div class="hud__pill"><span class="hud__label">تم</span><span class="hud__value" id="gotHud">0</span></div>
+                <div class="hud__pill"><span class="hud__label">قلوب</span><span class="hud__value" id="livesHud">3</span></div>
+              </div>
+
+                <div class="hint" id="hintBar" aria-live="polite">
+                  تحرك بـ <strong>WASD</strong> (أو الجويستك) — اضغط <strong>Space</strong> / <strong>Dash</strong> للهروب — اجمع الـOrbs.
+                </div>
+
+              <div class="overlay" id="overlay" hidden>
+                <div class="overlay__card">
+                  <div class="overlay__title" id="overlayTitle">جاهز</div>
+                  <div class="overlay__body" id="overlayBody"></div>
+                  <div class="overlay__actions" id="overlayActions"></div>
+                </div>
+              </div>
+
+              <div class="touch" id="touchUI" aria-hidden="true">
+                <div class="joy" id="joy" aria-label="Joystick">
+                  <div class="joy__knob" id="joyKnob"></div>
+                </div>
+                <button class="btn btn--primary touch__act" id="touchAct" type="button">Dash</button>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn--primary" id="runStart" type="button">ابدأ الجولة</button>
+              <button class="btn btn--ghost" id="openShop" type="button">المتجر</button>
+              <button class="btn btn--ghost" id="runCashout" type="button">إنهاء الجولة واستلام النقاط</button>
+              <button class="btn btn--ghost" id="runReset" type="button">إعادة</button>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <div class="footer__note">
+            Fan-made. أسماء الشخصيات/العالم تخص أصحابها. هذا مشروع للمتعة فقط بدون صور أو شعارات رسمية. <strong>حقوق long</strong>.
+          </div>
+          <button class="btn btn--small btn--ghost" id="resetAll" type="button">تصفير التقدم</button>
+        </footer>
+      </main>
+    </div>
+
+    <dialog class="modal" id="settingsDialog" aria-label="إعدادات">
+      <form method="dialog" class="modal__card">
+        <div class="modal__head">
+          <div class="modal__title">إعدادات</div>
+          <button class="iconbtn" value="cancel" aria-label="إغلاق" type="submit">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <path
+                fill="currentColor"
+                d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7A1 1 0 0 0 5.7 7.1l4.9 4.9-4.9 4.9a1 1 0 1 0 1.4 1.4l4.9-4.9 4.9 4.9a1 1 0 0 0 1.4-1.4L13.4 12l4.9-4.9a1 1 0 0 0 0-1.4Z"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal__body">
+          <label class="field">
+            <span class="field__label">الاسم داخل اللعبة</span>
+            <input id="playerName" class="input" autocomplete="nickname" placeholder="مثال: ElenaFan" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">يوزر دسكورد (للتنبيهات)</span>
+            <input id="discordUser" class="input" placeholder="مثال: yourname أو yourname#1234" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">البايو (إجباري)</span>
+            <textarea id="playerBio" class="input" rows="3" placeholder="اكتب تعريف بسيط عنك..."></textarea>
+          </label>
+
+          <div class="actions">
+            <button class="btn btn--ghost" id="logoutBtn" type="button">تسجيل خروج</button>
+          </div>
+
+          <label class="field field--row">
+            <span class="field__label">مؤثرات بسيطة</span>
+            <input id="reduceMotion" type="checkbox" />
+            <span class="field__hint">تقليل الحركة</span>
+          </label>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--primary" value="ok" type="submit">حفظ</button>
+          <button class="btn btn--ghost" value="cancel" type="submit">إلغاء</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="auth" id="authDialog" aria-label="تسجيل الدخول">
+      <form class="auth__card" id="authForm">
+        <div class="auth__glow" aria-hidden="true"></div>
+        <div class="auth__head">
+          <div class="auth__logo" aria-hidden="true">
+            <div class="brand__mark">
+              <svg viewBox="0 0 64 64" width="28" height="28" focusable="false">
+                <path
+                  d="M32 4c11.6 7.1 20 19.5 20 33.7C52 51 43.8 60 32 60S12 51 12 37.7C12 23.5 20.4 11.1 32 4Z"
+                  fill="currentColor"
+                  opacity="0.9"
+                />
+                <path d="M26 38c2.5 4.3 5 6 6 6s3.5-1.7 6-6" fill="none" stroke="currentColor" stroke-width="3" />
+              </svg>
+            </div>
+          </div>
+          <div class="auth__title">Mystic Hunt</div>
+          <div class="auth__sub">سجّل بياناتك عشان تبدأ — (إجباري)</div>
+        </div>
+
+        <div class="auth__body">
+          <label class="field">
+            <span class="field__label">اسم اللاعب</span>
+            <input id="authName" class="input" placeholder="مثال: ElenaFan" autocomplete="nickname" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">يوزر دسكورد</span>
+            <input id="authDiscord" class="input" placeholder="مثال: user أو user#1234" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">البايو</span>
+            <textarea id="authBio" class="input" rows="4" placeholder="اكتب تعريف بسيط عنك..."></textarea>
+          </label>
+
+          <div class="auth__hint" id="authHint">ملاحظة: هذه البيانات تساعد صاحب الموقع يتابع النقاط عبر الدسكورد.</div>
+        </div>
+
+        <div class="auth__actions">
+          <button class="btn btn--primary" id="authSubmit" type="submit">ابدأ</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./app.js?v=20260327_4"></script>
+  </body>
+</html>
